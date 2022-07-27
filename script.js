@@ -7,12 +7,14 @@ const gridSizeInput = document.querySelector(".grid-size > input");
 
 const colorPicker = document.querySelector("input.color-picker");
 const randomBtn = document.querySelector("button.random");
+const shadingBtn = document.querySelector("button.shading");
 const eraserBtn = document.querySelector("button.eraser");
 const clearGridBtn = document.querySelector("button.clear");
 
 let randomColors = false;
+let shading = false;
 let eraser = false;
-let color = "#000";
+let color = "rgb(0,0,0)";
 
 const gridDimension = "30rem";
 
@@ -50,23 +52,41 @@ function addSquaresToGrid(size) {
 
 function fillSquare(e) {
   if (e.buttons === 1) {
-    eraser
-      ? (e.target.style.backgroundColor = "#fff")
-      : (e.target.style.backgroundColor = randomColors
-          ? generateRandomColor()
-          : color);
+    if (eraser) {
+      e.target.style.opacity = "0";
+    } else {
+      if (randomColors) {
+        e.target.style.backgroundColor = generateRandomColor();
+      } else {
+        e.target.style.backgroundColor = color;
+      }
+
+      if (shading) {
+        const currentOpacity = +e.target.style.opacity;
+        const newOpacity =
+          currentOpacity + 0.1 > 1 ? 100 : currentOpacity + 0.1;
+        e.target.style.opacity = `${newOpacity}`;
+      } else {
+        e.target.style.opacity = "1";
+      }
+    }
   }
 }
 
 function clearGrid() {
   document.querySelectorAll(".square").forEach((square) => {
-    square.style.backgroundColor = "#fff";
+    square.style.opacity = "0";
   });
 }
 
 function toggleRandom() {
   randomColors = !randomColors;
   randomBtn.classList.toggle("active");
+}
+
+function toggleShading() {
+  shading = !shading;
+  shadingBtn.classList.toggle("active");
 }
 
 function toggleEraser() {
@@ -106,6 +126,7 @@ gridSizeInput.addEventListener("input", setGridSizeDisplay);
 
 colorPicker.addEventListener("change", changeColor);
 randomBtn.addEventListener("click", toggleRandom);
+shadingBtn.addEventListener("click", toggleShading);
 eraserBtn.addEventListener("click", toggleEraser);
 clearGridBtn.addEventListener("click", clearGrid);
 
