@@ -5,6 +5,8 @@ const grid = document.querySelector(".grid"); // container for etch a sketch gri
 const gridSizeDisplay = document.querySelector(".grid-size > p > span");
 const gridSizeInput = document.querySelector(".grid-size > input");
 
+const clearGridBtn = document.querySelector("button.clear");
+
 const gridDimension = "30rem";
 
 const gridSizeMin = 2;
@@ -69,6 +71,8 @@ function attachSquareEventListeners() {
 // add event listeners
 gridSizeInput.addEventListener("change", setGridSize);
 gridSizeInput.addEventListener("input", setGridSizeDisplay);
+
+clearGridBtn.addEventListener("click", clearGrid);
 
 // init
 setGridSizeDisplay();
