@@ -12,6 +12,7 @@ screen size breakpoints: (from Microsoft)
 html {
   box-sizing: border-box;
   font-size: 100%;
+  font-family: sans-serif;
 }
 
 *,
