@@ -5,10 +5,12 @@ const grid = document.querySelector(".grid"); // container for etch a sketch gri
 const gridSizeDisplay = document.querySelector(".grid-size > p > span");
 const gridSizeInput = document.querySelector(".grid-size > input");
 
+const colorPicker = document.querySelector("input.color-picker");
 const eraserBtn = document.querySelector("button.eraser");
 const clearGridBtn = document.querySelector("button.clear");
 
 let eraser = false;
+let color = "#000";
 
 const gridDimension = "30rem";
 
@@ -38,20 +40,24 @@ function addSquaresToGrid(size) {
 function fillSquare(e) {
   if (e.buttons === 1) {
     eraser
-      ? e.target.classList.remove("filled")
-      : e.target.classList.add("filled");
+      ? (e.target.style.backgroundColor = "#fff")
+      : (e.target.style.backgroundColor = color);
   }
 }
 
 function clearGrid() {
   document.querySelectorAll(".square").forEach((square) => {
-    square.classList.remove("filled");
+    square.style.backgroundColor = "#fff";
   });
 }
 
 function toggleEraser() {
   eraser = !eraser;
   eraserBtn.classList.toggle("active");
+}
+
+function changeColor(e) {
+  color = e.target.value;
 }
 
 function setGridSize(e) {
@@ -80,6 +86,7 @@ function attachSquareEventListeners() {
 gridSizeInput.addEventListener("change", setGridSize);
 gridSizeInput.addEventListener("input", setGridSizeDisplay);
 
+colorPicker.addEventListener("change", changeColor);
 eraserBtn.addEventListener("click", toggleEraser);
 clearGridBtn.addEventListener("click", clearGrid);
 
