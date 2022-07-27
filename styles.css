@@ -1,9 +1,17 @@
+/* 
+screen size breakpoints: (from Microsoft)
+ - large: 1008px or greater
+ - medium: 641px - 1007px
+ - smalle: 640px or smaller
+*/
+
 :root {
   --backgroundColor: rgb(240, 240, 240);
 }
 
 html {
   box-sizing: border-box;
+  font-size: 100%;
 }
 
 *,
@@ -14,15 +22,42 @@ html {
 
 body {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  background-color: var(--backgroundColor);
+}
+
+@media screen and (max-width: 1007px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  html {
+    font-size: 75%;
+  }
+
+  body {
+    flex-direction: column-reverse;
+  }
+}
+.options {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--backgroundColor);
+  gap: 2rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .grid {
   display: grid;
-  width: fit-content;
-  height: fit-content;
   box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
   background-color: white;
 }

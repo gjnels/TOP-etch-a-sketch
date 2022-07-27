@@ -2,8 +2,14 @@
 
 const grid = document.querySelector(".grid"); // container for etch a sketch grid
 
+// const
+
+const gridDimension = "30rem";
 const gridSize = 16; // will change this later to be adjustable by user
-const cellSize = "2rem";
+const cellSize = "1fr";
+
+grid.style.width = gridDimension;
+grid.style.height = gridDimension;
 
 // grid cells depend on grid size
 // cell size based on root font-size
