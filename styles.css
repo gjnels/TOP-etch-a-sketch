@@ -34,3 +34,6 @@ body {
 .square:hover {
   background-color: var(--backgroundColor);
 }
+.square.filled {
+  background-color: black;
+}
