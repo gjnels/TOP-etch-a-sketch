@@ -6,9 +6,11 @@ const gridSizeDisplay = document.querySelector(".grid-size > p > span");
 const gridSizeInput = document.querySelector(".grid-size > input");
 
 const colorPicker = document.querySelector("input.color-picker");
+const randomBtn = document.querySelector("button.random");
 const eraserBtn = document.querySelector("button.eraser");
 const clearGridBtn = document.querySelector("button.clear");
 
+let randomColors = false;
 let eraser = false;
 let color = "#000";
 
@@ -28,6 +30,15 @@ gridSizeInput.min = `${gridSizeMin}`;
 gridSizeInput.max = `${gridSizeMax}`;
 gridSizeInput.defaultValue = `${defaultGridSize}`;
 
+// helper functions
+function generateRandomColor() {
+  const red = Math.floor(Math.random() * 256);
+  const blue = Math.floor(Math.random() * 256);
+  const green = Math.floor(Math.random() * 256);
+
+  return `rgb(${red}, ${blue}, ${green})`;
+}
+
 // event listener callback functions
 function addSquaresToGrid(size) {
   for (let i = 0; i < size ** 2; i++) {
@@ -41,7 +52,9 @@ function fillSquare(e) {
   if (e.buttons === 1) {
     eraser
       ? (e.target.style.backgroundColor = "#fff")
-      : (e.target.style.backgroundColor = color);
+      : (e.target.style.backgroundColor = randomColors
+          ? generateRandomColor()
+          : color);
   }
 }
 
@@ -49,6 +62,11 @@ function clearGrid() {
   document.querySelectorAll(".square").forEach((square) => {
     square.style.backgroundColor = "#fff";
   });
+}
+
+function toggleRandom() {
+  randomColors = !randomColors;
+  randomBtn.classList.toggle("active");
 }
 
 function toggleEraser() {
@@ -87,6 +105,7 @@ gridSizeInput.addEventListener("change", setGridSize);
 gridSizeInput.addEventListener("input", setGridSizeDisplay);
 
 colorPicker.addEventListener("change", changeColor);
+randomBtn.addEventListener("click", toggleRandom);
 eraserBtn.addEventListener("click", toggleEraser);
 clearGridBtn.addEventListener("click", clearGrid);
 
