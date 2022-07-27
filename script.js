@@ -5,7 +5,10 @@ const grid = document.querySelector(".grid"); // container for etch a sketch gri
 const gridSizeDisplay = document.querySelector(".grid-size > p > span");
 const gridSizeInput = document.querySelector(".grid-size > input");
 
+const eraserBtn = document.querySelector("button.eraser");
 const clearGridBtn = document.querySelector("button.clear");
+
+let eraser = false;
 
 const gridDimension = "30rem";
 
@@ -33,17 +36,22 @@ function addSquaresToGrid(size) {
 }
 
 function fillSquare(e) {
-  if (e.buttons === 1) e.target.classList.add("filled");
-}
-
-function eraseSquare(e) {
-  e.target.classList.remove("filled");
+  if (e.buttons === 1) {
+    eraser
+      ? e.target.classList.remove("filled")
+      : e.target.classList.add("filled");
+  }
 }
 
 function clearGrid() {
   document.querySelectorAll(".square").forEach((square) => {
     square.classList.remove("filled");
   });
+}
+
+function toggleEraser() {
+  eraser = !eraser;
+  eraserBtn.classList.toggle("active");
 }
 
 function setGridSize(e) {
@@ -72,6 +80,7 @@ function attachSquareEventListeners() {
 gridSizeInput.addEventListener("change", setGridSize);
 gridSizeInput.addEventListener("input", setGridSizeDisplay);
 
+eraserBtn.addEventListener("click", toggleEraser);
 clearGridBtn.addEventListener("click", clearGrid);
 
 // init

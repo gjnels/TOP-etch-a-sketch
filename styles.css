@@ -43,6 +43,7 @@ body {
     flex-direction: column-reverse;
   }
 }
+
 .options {
   display: flex;
   flex-direction: column;
@@ -72,9 +73,19 @@ body {
 .square.filled {
   background-color: black;
 }
+.square.filled:hover {
+  opacity: 0.8;
+}
 
 button {
   padding: 0.5rem 1rem;
   font-size: 1.1rem;
   cursor: pointer;
+  width: 6rem;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+button.active {
+  background-color: rgba(0, 255, 208, 0.2);
 }
